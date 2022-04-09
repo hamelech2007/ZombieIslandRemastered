@@ -33,6 +33,12 @@ public class MessagesManager implements Manager{
         setIfNull("ownership-changed", "&aSuccessfully changed the guild's owner to %player%!");
         setIfNull("guild-disbanded", "&aYour guild has been disbanded!");
 
+        setNameIfNull("tank-zombie", "&c&lTank Zombie");
+
+        for(String key : pluginManager.getNamesFile().getConfig().getKeys(false)){
+            pluginManager.getNames().put(key, ChatUtils.colorize(pluginManager.getNamesFile().getConfig().getString(key)));
+        }
+
         for(String key : pluginManager.getMessagesFile().getConfig().getKeys(false)){
             pluginManager.getMessages().put(key, ChatUtils.colorize(pluginManager.getMessagesFile().getConfig().getString(key)));
         }
@@ -41,5 +47,10 @@ public class MessagesManager implements Manager{
     private void setIfNull(String path, String object){
         if(pluginManager.getMessagesFile().getConfig().getString(path) != null) return;
         pluginManager.getMessagesFile().set(path, object);
+    }
+
+    private void  setNameIfNull(String path, String name){
+        if (pluginManager.getNamesFile().getConfig().getString(path) != null) return;
+        pluginManager.getNamesFile().set(path, name);
     }
 }

@@ -3,6 +3,7 @@ package me.hamelech.zombieislandremastered.managers;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import me.hamelech.zombieislandremastered.ZombieIslandRemastered;
 import me.hamelech.zombieislandremastered.configuration.Config;
+import me.hamelech.zombieislandremastered.exceptions.UnknownVersionException;
 import me.hamelech.zombieislandremastered.utils.ChatUtils;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
@@ -16,6 +17,8 @@ import java.util.Map;
 public class PluginManager implements Manager{
 
     private final ZombieIslandRemastered plugin;
+
+    private final Config namesFile;
 
     private final Config messagesFile;
 
@@ -31,9 +34,13 @@ public class PluginManager implements Manager{
 
     private final PlayerDataManager playerDataManager = new PlayerDataManager(this);
 
+    private final NMSManager nmsManager = new NMSManager(this);
+
     private WorldEditPlugin worldEditPlugin = null;;
 
     private final Map<String, String> messages = new HashMap<>();
+
+    private final Map<String, String> names = new HashMap<>();
 
     private final List<Manager> managers = new ArrayList<>();
 
@@ -41,6 +48,7 @@ public class PluginManager implements Manager{
         this.plugin = plugin;
         this.messagesFile = new Config("messages", plugin);
         this.gunsFile = new Config("guns", plugin);
+        this.namesFile = new Config("names", plugin);
         Plugin curr = plugin.getServer().getPluginManager().getPlugin("WorldEdit");
         if(!(curr instanceof WorldEditPlugin)){
             ChatUtils.consoleError("WorldEdit was not found! Disabling plugin.");
@@ -61,6 +69,7 @@ public class PluginManager implements Manager{
         registerManager(guildsManager);
         registerManager(playerDataManager);
         registerManager(guildsManager);
+        registerManager(nmsManager);
 
         for(Manager manager : managers){
             manager.initialize();

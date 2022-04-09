@@ -2,6 +2,7 @@ package me.hamelech.zombieislandremastered;
 
 import me.hamelech.zombieislandremastered.commands.impl.guilds.GuildCMD;
 import me.hamelech.zombieislandremastered.commands.impl.guilds.GuildChatCMD;
+import me.hamelech.zombieislandremastered.commands.impl.zombie.SpawnZombieCMD;
 import me.hamelech.zombieislandremastered.listeners.PlayerJoinListener;
 import me.hamelech.zombieislandremastered.listeners.PlayerQuitListener;
 import me.hamelech.zombieislandremastered.managers.PluginManager;
@@ -15,8 +16,10 @@ public final class ZombieIslandRemastered extends JavaPlugin {
         pluginManager.initialize();
         getCommand("guilds").setExecutor(new GuildCMD(pluginManager));
         getCommand("guildchat").setExecutor(new GuildChatCMD(pluginManager));
+        getCommand("spawnzombie").setExecutor(new SpawnZombieCMD(pluginManager));
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(pluginManager), this);
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(pluginManager), this);
+
     }
 
     @Override

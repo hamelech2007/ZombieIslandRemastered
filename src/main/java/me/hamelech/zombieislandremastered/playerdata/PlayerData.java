@@ -28,7 +28,7 @@ public class PlayerData {
     }
     public Area getCurrentArea(){
         setCurrentArea(pluginManager.getAreaManager().getCurrentArea(Bukkit.getPlayer(uuid)));
-        return getCurrentArea();
+        return currentArea;
     }
 
 

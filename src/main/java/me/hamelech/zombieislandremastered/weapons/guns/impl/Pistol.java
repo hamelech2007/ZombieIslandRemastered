@@ -37,7 +37,7 @@ public class Pistol implements Gun {
     public void shoot(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.RIGHT_CLICK_AIR) || !event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         if(event.getItem().getType() != gunItem.getType()) return;
-        if(event.getItem().getItemMeta().getDisplayName() != gunItem.getItemMeta().getDisplayName()) return;
+        if(!event.getItem().getItemMeta().getDisplayName().equals(gunItem.getItemMeta().getDisplayName())) return;
         if(!event.getItem().getItemMeta().getLore().equals(gunItem.getItemMeta().getLore())) return;
 
         event.setCancelled(true);

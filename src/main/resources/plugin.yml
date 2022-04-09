@@ -1,9 +1,12 @@
 name: ZombieIslandRemastered
 version: ${project.version}
 main: me.hamelech.zombieislandremastered.ZombieIslandRemastered
-api-version: 1.17
+#api-version: 1.17
 authors: [ hamelech ]
 description: A MMORPG style minigame.
+depend:
+  - WorldEdit
 commands:
   guilds:
   guildchat:
+  spawnzombie:

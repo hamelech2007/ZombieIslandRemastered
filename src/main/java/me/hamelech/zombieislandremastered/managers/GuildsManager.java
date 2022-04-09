@@ -49,7 +49,7 @@ public class GuildsManager implements Manager {
     public void createGuild(String name, Player creator){
         Set<UUID> members = new HashSet<>();
         members.add(creator.getUniqueId());
-        Guild guild = new Guild(name, UUID.randomUUID(),members , creator.getUniqueId());
+        Guild guild = new Guild(name, UUID.randomUUID(), members, creator.getUniqueId());
 
         guilds.add(guild);
 
@@ -90,13 +90,12 @@ public class GuildsManager implements Manager {
         for(Guild guild : guilds){
             if(guild.getMembers().contains(player.getUniqueId())) return guild;
         }
-
-        try {
+        return null;
+        /*try {
             throw new GuildNotFoundException();
         } catch (GuildNotFoundException e) {
             e.printStackTrace();
-        }
-        return null;
+        }*/
     }
 
     public boolean doesGuildExist(String guildName){

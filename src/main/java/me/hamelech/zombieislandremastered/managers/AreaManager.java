@@ -1,11 +1,15 @@
 package me.hamelech.zombieislandremastered.managers;
 
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.world.World;
 import lombok.Getter;
 import me.hamelech.zombieislandremastered.area.Area;
 import me.hamelech.zombieislandremastered.area.impl.BasicArea;
 import me.hamelech.zombieislandremastered.configuration.Config;
 import me.hamelech.zombieislandremastered.utils.LocUtils;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -47,7 +51,15 @@ public class AreaManager implements Manager {
     }
 
     public Area getCurrentArea(Player player){
-        //TODO
+        for(Area area : areas){
+            BlockVector3 pos1 = BlockVector3.at(area.getPos1().getBlockX(), area.getPos1().getBlockY(), area.getPos1().getBlockZ());
+            BlockVector3 pos2 = BlockVector3.at(area.getPos2().getBlockX(), area.getPos2().getBlockY(), area.getPos2().getBlockZ());
+
+            CuboidRegion region = new CuboidRegion((World) area.getPos1().getWorld() ,pos1, pos2);
+            if(region.contains(BlockVector3.at(player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ()))){
+                return area;
+            }
+        }
         return null;
     }
 }
